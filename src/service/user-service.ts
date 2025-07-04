@@ -152,3 +152,20 @@ export const deleteUserService = async (req: Request, res: Response) => {
   );
   return user;
 };
+
+/**
+ *
+ * - path /api/v1/users/user-by-username/:username - Get user by username
+ * - method: GET
+ * - roles: [USER, ADMIN, SUPER_ADMIN]
+ */
+export const getUserByUsernameService = async (username: string) => {
+  const userRepository = AppDataSource.getRepository(User);
+
+  const user = await userRepository.findOne({
+    where: { user_name: username }, // Note: using user_name to match your schema
+    relations: ['devices'], // Using same relations as your getUsersService
+  });
+
+  return user;
+};

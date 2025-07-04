@@ -4,6 +4,7 @@ import {
   meController,
   updateProfileController,
   updateUserByAdminController,
+  GetUserByUsernameController, // <- Add this line
 } from '@/controller';
 import { UserRole } from '@/enum';
 import { authMiddleware } from '@/middleware/auth-middleware';
@@ -22,6 +23,11 @@ router.get(
   authMiddleware,
   meController,
   // roleCheck([UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.USER]),
+);
+router.get(
+  '/user-by-username/:username',
+  authMiddleware,
+  GetUserByUsernameController,
 );
 router.put('/update-profile', authMiddleware, updateProfileController);
 router.delete(
